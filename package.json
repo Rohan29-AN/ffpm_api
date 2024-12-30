@@ -1,0 +1,25 @@
+{
+  "name": "fihirana_api",
+  "version": "1.0.0",
+  "description": "This project contains an API (REST or GraphQL) to retrieve the lyrics of the Fihirana ffpm.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start":"nodemon app.js"
+  },
+  "keywords": [
+    "fihirana",
+    "ffpm",
+    "api",
+    "tsanta",
+    "antema",
+    "fanampiny"
+  ],
+  "author": "Rohan29-AN",
+  "license": "MIT",
+  "dependencies": {
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "nodemon": "^3.1.9"
+  }
+}
