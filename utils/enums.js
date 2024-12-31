@@ -1,6 +1,6 @@
 const SONG_TYPE = {
     FFPM: 'ffpm',
-    FANAMPINY: 'ff',
+    FIHIRANA_FANAMPINY: 'ff',
     ANTEMA: 'antema'
 }
 
