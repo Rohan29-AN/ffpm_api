@@ -42,6 +42,7 @@ module.exports = {
         catch (error) {
             console.log("An error has occured :", error)
             throw new Error("An error occurred in processing the song data: " + error.message)
+            //Bye 2024
         }
 
 
