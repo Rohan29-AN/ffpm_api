@@ -30,7 +30,11 @@ module.exports = {
                 return res.status(400).json({ error: "Invalid verses format", message: 'The "verses" parameter must be a comma-separated list of numbers, e.g., "1,3"' })
             }
             else if (req.query.verses && versesRegex.test(req.query.verses)) {
-                verses = req.query.verses.split(',')
+                verses = req.query.verses.split(',').map(Number)
+                //remove duplicates if they exist
+                let cleanedValues = new Set(verses)
+                verses = [...cleanedValues]
+                console.log("CLeanedValues: ", cleanedValues)
             }
             else {
                 //This [] value means that all verses will be retrieved
@@ -46,9 +50,19 @@ module.exports = {
                 "verses": []
             }
             if (verses.length > 0) {
-                response.requestedVerses = verses
-                for (let i = 0; i < verses.length; i++) {
-                    response.verses.push(lyrics[(Number(verses[i]) - 1)])
+                response.requestedVerses = lyrics.filter(value => verses.includes(value.andininy))
+
+                console.log("includes ", verses.includes(0))
+                if (response.requestedVerses.length > 0) {
+                    if (!verses.includes(0)) {
+                        response.requestedVerses.push(lyrics.filter(value => value.andininy == 0))
+                    }
+                }
+                else {
+                    return res.status(400).json({
+                        error: "Invalid Verses Request",
+                        message: `The song with ID "${req.params.songId}" does not contain the requested verses: ${verses.join(', ')}. Please check the verse numbers and try again.`
+                    })
                 }
             }
             else {
