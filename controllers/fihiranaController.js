@@ -18,7 +18,8 @@ module.exports = {
             }
 
             //check if the songID is not between 1 and the max value
-            if (!Number(req.params.songId) < 1 || Number(req.params.songId) > PAGE_MAX[req.query.songType]) {
+            console.log('max:',PAGE_MAX[req.query.songType])
+            if (Number(req.params.songId) < 1 || Number(req.params.songId) > PAGE_MAX[req.query.songType]) {
                 return res.status(400).json({ error: "Song not found", message: ` "The song with ID ${req.params.songId} does not exist.` })
 
             }
