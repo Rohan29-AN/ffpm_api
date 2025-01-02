@@ -18,7 +18,6 @@ module.exports = {
             }
 
             //check if the songID is not between 1 and the max value
-            console.log('max:',PAGE_MAX[req.query.songType])
             if (Number(req.params.songId) < 1 || Number(req.params.songId) > PAGE_MAX[req.query.songType]) {
                 return res.status(400).json({ error: "Song not found", message: ` "The song with ID ${req.params.songId} does not exist.` })
 
@@ -38,7 +37,7 @@ module.exports = {
                 verses = []
             }
 
-            const lyrics = await retrieveLyrics(Number(req.params.songId))
+            const lyrics = await retrieveLyrics(req.query.songType, Number(req.params.songId))
 
             let response = {
                 "songId": req.params.songId,
@@ -59,7 +58,6 @@ module.exports = {
             return res.status(200).json(response)
         }
         catch (error) {
-            console.log("Error message : ", error.message)
             res.status(500).json({
                 error: 'Internal Server Error',
                 message: 'Something went wrong. Please try again later.'

@@ -12,14 +12,12 @@ module.exports = {
      */
     async readFileLyrics(fileName) {
         const path = `${filePath}${fileName}`
-        console.log("Path : ", path)
         const data = await new Promise((resolve, reject) => {
             fs.readFile(path, 'utf-8', async (err, data) => {
                 if (err) {
-                    console.log(err)
                     reject(data)
                 } else {
-                    console.log("Resolve")
+
                     resolve(data)
                 }
             })

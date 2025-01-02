@@ -1,3 +1,4 @@
+const { json } = require("express")
 const { SONG_TYPE } = require("../utils/enums")
 const { readFileLyrics } = require("../utils/fileHandler")
 
@@ -13,28 +14,25 @@ module.exports = {
             let fileName = ''
             switch (songType) {
                 case SONG_TYPE.FFPM:
-                    fileName = `ffpm.json`
+                    fileName = `ffpm`
                     break
                 case SONG_TYPE.FIHIRANA_FANAMPINY:
-                    fileName = `ff.json`
+                    fileName = `ff`
                     break
                 case SONG_TYPE.ANTEMA:
-                    fileName = `antema.json`
+                    fileName = `antema`
                     break
                 default:
                     throw new Error("Type not recognized")
             }
             //retrieve the source of lyrics according to the type of song
-            const data = readFileLyrics(fileName)
+            const data = await readFileLyrics(`${fileName}.json`)
 
             const key = `${fileName}_${songId}`
-
+            const jsonData = JSON.parse(data)
             if (!jsonData[key]) {
                 throw new Error(`Song ID "${songId}" not found in file "${fileName}"`)
             }
-
-            const jsonData = JSON.parse(data)
-
             const result = jsonData[key].hira
             return result
 
