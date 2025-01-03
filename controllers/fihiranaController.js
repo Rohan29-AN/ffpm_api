@@ -34,7 +34,6 @@ module.exports = {
                 //remove duplicates if they exist
                 let cleanedValues = new Set(verses)
                 verses = [...cleanedValues]
-                console.log("CLeanedValues: ", cleanedValues)
             }
             else {
                 //This [] value means that all verses will be retrieved
@@ -51,8 +50,6 @@ module.exports = {
             }
             if (verses.length > 0) {
                 response.requestedVerses = lyrics.filter(value => verses.includes(value.andininy))
-
-                console.log("includes ", verses.includes(0))
                 if (response.requestedVerses.length > 0) {
                     if (!verses.includes(0)) {
                         response.requestedVerses.push(lyrics.filter(value => value.andininy == 0))
