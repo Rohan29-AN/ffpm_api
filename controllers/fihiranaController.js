@@ -25,7 +25,7 @@ module.exports = {
 
             //Check if the 'verses' parameter is provided and it follows the predefined rule
             const versesRegex = /^\d+(,\d+)*$/
-            let verses
+            let verses, requestedVerses
             if (req.query.verses && !versesRegex.test(req.query.verses)) {
                 return res.status(400).json({ error: "Invalid verses format", message: 'The "verses" parameter must be a comma-separated list of numbers, e.g., "1,3"' })
             }
@@ -33,7 +33,7 @@ module.exports = {
                 verses = req.query.verses.split(',').map(Number)
                 //remove duplicates if they exist
                 let cleanedValues = new Set(verses)
-                verses = [...cleanedValues]
+                requestedVerses = [...cleanedValues]
             }
             else {
                 //This [] value means that all verses will be retrieved
@@ -45,14 +45,14 @@ module.exports = {
             let response = {
                 "songId": req.params.songId,
                 "songType": req.query.songType,
-                "requestedVerses": [],
+                "requestedVerses": requestedVerses,
                 "verses": []
             }
-            if (verses.length > 0) {
-                response.requestedVerses = lyrics.filter(value => verses.includes(value.andininy))
-                if (response.requestedVerses.length > 0) {
+            if (requestedVerses.length > 0) {
+                response.verses = lyrics.filter(value => verses.includes(value.andininy))
+                if (response.verses.length > 0) {
                     if (!verses.includes(0)) {
-                        response.requestedVerses.push(lyrics.filter(value => value.andininy == 0))
+                        response.verses.push(lyrics.filter(value => value.andininy == 0))
                     }
                 }
                 else {
@@ -69,6 +69,7 @@ module.exports = {
             return res.status(200).json(response)
         }
         catch (error) {
+            console.log("error", error.message)
             res.status(500).json({
                 error: 'Internal Server Error',
                 message: 'Something went wrong. Please try again later.'
