@@ -25,21 +25,28 @@ const router = express.Router()
  * @swagger
  * components:
  *   schemas:
- *     Verse:
+ *     DetailedSongSchema:
  *       type:  object
  *       properties:
- *         andininy:
+ *         songId:
  *           type:  integer
- *           description:  The verse ID
- *         tononkira:
+ *           description:  The id of the song you are looking for
+ *         songType:
  *           type:  string
- *           description:  The verse
- *         fiverenany:
- *           type:  boolean
- *           description:  Variable to indicate whether it is the chorus or not
+ *           description:  The type of song
+ *         requestedVerses:
+ *           type:  array
+ *           items:  
+ *             type:  integer
+ *             description:  List of verse IDs
+ *         verses:
+ *           type:  array
+ *           items:
+ *             $ref:  '#/components/schemas/Verse'
+ *             description:  List of verses requested
  *        
  */
 
-router.get('/lyrics/:songId',getLyrics)
+router.get('/lyrics/:songId', getLyrics)
 
 module.exports = router
