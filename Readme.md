@@ -5,6 +5,7 @@ This repository contains the base code for the fihirana ffpm API. the goal is to
 Usage:
 
 npm i
+
 npm start
 
 
