@@ -7,6 +7,7 @@ module.exports = {
      * @returns true if the songType is valid and false otherwise
      */
     isValidSongType(songType) {
-        return Object.values(SONG_TYPE).includes(songType   )
+        console.log(" Song type", songType)
+        return Object.values(SONG_TYPE).includes(songType)
     }
 }

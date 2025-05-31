@@ -8,20 +8,22 @@ module.exports = {
             if (!req.params.songId) {
                 return res.status(400).json({ error: "Missing songId", message: "The 'songId' parameter is required to retrieve lyrics" })
             }
-
+            console.log(" ETOOO")
             if (!req.query.songType) {
                 return res.status(400).json({ error: "Missing songType", message: "The 'songType' parameter is required to retrieve lyrics" })
             }
 
             if (!isValidSongType(req.query.songType)) {
-                return res.status(400).json({ error: "Invalid songType", message: `'${songType}' is not a valid song type. Valid types are: ffpm, ff, antema.` })
+                return res.status(400).json({ error: "Invalid songType", message: `'${req.query.songType}' is not a valid song type. Valid types are: ffpm, ff, antema.` })
             }
+            console.log(" Check point 2:",)
 
             //check if the songID is not between 1 and the max value
             if (Number(req.params.songId) < 1 || Number(req.params.songId) > PAGE_MAX[req.query.songType]) {
                 return res.status(400).json({ error: "Song not found", message: ` "The song with ID ${req.params.songId} does not exist.` })
 
-            }
+            }   
+            console.log(" Mbola tong aetp")
 
             //Check if the 'verses' parameter is provided and it follows the predefined rule
             const versesRegex = /^\d+(,\d+)*$/
